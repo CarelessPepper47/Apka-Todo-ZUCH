@@ -72,14 +72,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 10,
     color: '#00FFC4',
+    paddingLeft: 15,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    borderRadius: 8,
-    backgroundColor: '#fff', // Dodane dla lepszej widoczności tekstu
-    marginBottom: 15,
+    borderWidth: 2,
+    borderColor: "#4A4D57",
+    padding: 15,
+    borderRadius: 25,
+    backgroundColor: 'transparent',
+    color: '#f9f9f9',
+    fontSize: 16,
   },
   message: {
     marginTop: 20,
@@ -91,9 +93,10 @@ const styles = StyleSheet.create({
   loginButton: {
     backgroundColor: '#00FFC4',
     padding: 15,
-    borderRadius: 8,
+    marginTop: 15,
+    borderRadius: 25,
     alignItems: 'center',
-    marginTop: 10,
+
   },
   loginButtonText: {
     color: '#101114',
