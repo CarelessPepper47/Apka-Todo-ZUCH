@@ -33,6 +33,15 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
+        name="sign"
+        options={{
+          title: 'Sign Up',
+          tabBarIcon: ({ color }: TabBarIconProps) => (
+            <MaterialIcons name="person-add" size={28} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
@@ -47,15 +56,6 @@ export default function TabLayout() {
           title: 'ToDoApp',
           tabBarIcon: ({ color }: TabBarIconProps) => (
             <IconSymbol size={28} name="paperplane.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="sign"
-        options={{
-          title: 'Sign Up',
-          tabBarIcon: ({ color }: TabBarIconProps) => (
-            <MaterialIcons name="person-add" size={28} color={color} />
           ),
         }}
       />

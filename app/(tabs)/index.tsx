@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useUser } from '../context/UserContext';
+import { useRouter } from 'expo-router';
+
 
 export default function HomeScreen() {
   const { user, setUser } = useUser();
+  const router = useRouter();
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -14,6 +17,7 @@ export default function HomeScreen() {
     if (username === "szef" && password === "kosmosu") {
       setUser('ZUCH')
       setMessage("Zalogowano jako ZUCH");
+      router.replace('/todo');
     } else {
       setUser('DUPA')
       setMessage("Niepoprawne logowanie");
@@ -66,6 +70,12 @@ export default function HomeScreen() {
       >
         <Text style={styles.loginButtonText}>Log In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.replace('/sign')}>
+        <Text style={{ color: '#00FFC4', marginTop: 20, textAlign: 'center' }}>
+          Create an account
+        </Text>
+      </TouchableOpacity>
+
 
       {message !== "" && <Text style={styles.message}>{message}</Text>}
     </View>

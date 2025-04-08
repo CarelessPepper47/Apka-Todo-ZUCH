@@ -9,12 +9,17 @@ import {
 } from 'react-native';
 import { useUser } from '../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+
+
 
 export default function SignIn() {
   const { setUser } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const router = useRouter();
 
   const handleSignUp = () => {
     if (password !== confirmPassword) {
@@ -34,9 +39,9 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Sign In</Text>
+      <Text style={styles.header}>Sign Up</Text>
       
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <MaterialIcons name="person" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
@@ -48,7 +53,7 @@ export default function SignIn() {
         />
       </View>
 
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <MaterialIcons name="lock" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
@@ -60,7 +65,7 @@ export default function SignIn() {
         />
       </View>
 
-      <View style={styles.inputGroup}>
+      <View style={styles.inputContainer}>
         <MaterialIcons name="lock-outline" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
@@ -78,6 +83,12 @@ export default function SignIn() {
       >
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => router.replace('/')}>
+        <Text style={{ color: '#00FFC4', marginTop: 20, textAlign: 'center' }}>
+          I already have an account
+        </Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
@@ -97,12 +108,15 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     textTransform: 'uppercase'
   },
-  inputGroup: {
+  inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: "#4A4D57",
+    borderRadius: 25,
+    backgroundColor: 'transparent',
     marginBottom: 20,
-    borderBottomWidth: 2,
-    borderBottomColor: '#4A4D57',
+    paddingHorizontal: 15,
   },
   icon: {
     marginRight: 10,
