@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   View, 
   Text, 
   TextInput, 
   TouchableOpacity, 
-  ScrollView, 
+  Alert, 
   StyleSheet,
   FlatList
 } from 'react-native';
 import { useUser } from '../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TodoItem = {
   id: string;
@@ -17,10 +18,46 @@ type TodoItem = {
   completed: boolean;
 };
 
+const STORAGE_KEY = '@todos_data';
+
 export default function TodoScreen() {
   const { user } = useUser();
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [newTodo, setNewTodo] = useState('');
+
+  useEffect(() => {
+    if (user === 'ZUCH') {
+        loadTodos();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user === 'ZUCH') {
+        saveTodos();
+    }
+  }, [todos]);
+
+  const loadTodos = async () => {
+    try {
+        const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
+        if (jsonValue !== null) {
+            setTodos(JSON.parse(jsonValue));
+        }
+    } catch (e) {
+        Alert.alert('Błąd', 'Nie udało się wczytać zapisanych zadań')
+        console.error('Błąd wczytywania', e);
+    }
+  }
+
+  const saveTodos = async () => {
+    try {
+        const jsonValue = JSON.stringify(todos);
+        await AsyncStorage.setItem(STORAGE_KEY, jsonValue);
+    } catch (e) {
+        Alert.alert('Błąd', 'Nie udało się zapisać zadań');
+        console.error('Błąd zapisywania', e);
+    }
+  }
 
   const addTodo = () => {
     if (newTodo.trim()) {
