@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { MaterialIcons } from '@expo/vector-icons';
 import { useUser } from '../context/UserContext';
 
 export default function HomeScreen() {
@@ -24,30 +25,49 @@ export default function HomeScreen() {
       <Text style={styles.appLogo}>
         Moja Apka
       </Text>
-        <Text style={styles.label}>Username:</Text>
+      
+      <View style={styles.inputContainer}>
+        <MaterialIcons 
+          name="person" 
+          size={20} 
+          color="#4A4D57" 
+          style={styles.inputIcon} 
+        />
         <TextInput
           style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="#4A4D57"
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
         />
+      </View>
 
-        <Text style={styles.label}>Password:</Text>
+      <View style={styles.inputContainer}>
+        <MaterialIcons 
+          name="lock" 
+          size={20} 
+          color="#4A4D57" 
+          style={styles.inputIcon} 
+        />
         <TextInput
           style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#4A4D57"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
+      </View>
 
-        <TouchableOpacity 
-          style={styles.loginButton} 
-          onPress={handleLogin}
-        >
-          <Text style={styles.loginButtonText}>Zaloguj się</Text>
-        </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.loginButton} 
+        onPress={handleLogin}
+      >
+        <Text style={styles.loginButtonText}>Zaloguj się</Text>
+      </TouchableOpacity>
 
-        {message !== "" && <Text style={styles.message}>{message}</Text>}
+      {message !== "" && <Text style={styles.message}>{message}</Text>}
     </View>
   );
 }
@@ -58,28 +78,31 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
     backgroundColor: "#101114",
-    marginBottom: 50,
   },
   appLogo: {
-    marginBottom: 25,
+    marginBottom: 40,
     fontSize: 42,
     fontWeight: '800',
     textAlign: 'center',
     color: '#00FFC4',
     textTransform: 'uppercase'
   },
-  label: {
-    fontSize: 18,
-    marginVertical: 10,
-    color: '#00FFC4',
-    paddingLeft: 15,
-  },
-  input: {
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 2,
     borderColor: "#4A4D57",
-    padding: 15,
     borderRadius: 25,
     backgroundColor: 'transparent',
+    marginBottom: 20,
+    paddingHorizontal: 15,
+  },
+  inputIcon: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    height: 50,
     color: '#f9f9f9',
     fontSize: 16,
   },
@@ -88,15 +111,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    color: '#00FFC4', // Dodane dla spójności stylu
+    color: '#00FFC4',
   },
   loginButton: {
     backgroundColor: '#00FFC4',
     padding: 15,
-    marginTop: 15,
     borderRadius: 25,
     alignItems: 'center',
-
+    marginTop: 15,
   },
   loginButtonText: {
     color: '#101114',

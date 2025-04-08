@@ -10,7 +10,7 @@ import {
 import { useUser } from '../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function SignScreen() {
+export default function SignIn() {
   const { setUser } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,13 +34,13 @@ export default function SignScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Rejestracja</Text>
+      <Text style={styles.header}>Sign In</Text>
       
       <View style={styles.inputGroup}>
         <MaterialIcons name="person" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="Nazwa użytkownika"
+          placeholder="Username"
           placeholderTextColor="#4A4D57"
           value={username}
           onChangeText={setUsername}
@@ -52,7 +52,7 @@ export default function SignScreen() {
         <MaterialIcons name="lock" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="Hasło"
+          placeholder="Password"
           placeholderTextColor="#4A4D57"
           value={password}
           onChangeText={setPassword}
@@ -64,7 +64,7 @@ export default function SignScreen() {
         <MaterialIcons name="lock-outline" size={20} color="#4A4D57" style={styles.icon} />
         <TextInput
           style={styles.input}
-          placeholder="Potwierdź hasło"
+          placeholder="Confirm password"
           placeholderTextColor="#4A4D57"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
@@ -76,7 +76,7 @@ export default function SignScreen() {
         style={styles.button} 
         onPress={handleSignUp}
       >
-        <Text style={styles.buttonText}>Zarejestruj się</Text>
+        <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
     </View>
   );
