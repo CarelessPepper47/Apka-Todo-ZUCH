@@ -23,7 +23,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.appLogo}>
-        Moja Apka
+        My App
       </Text>
       
       <View style={styles.inputContainer}>
@@ -64,7 +64,7 @@ export default function HomeScreen() {
         style={styles.loginButton} 
         onPress={handleLogin}
       >
-        <Text style={styles.loginButtonText}>Zaloguj się</Text>
+        <Text style={styles.loginButtonText}>Log In</Text>
       </TouchableOpacity>
 
       {message !== "" && <Text style={styles.message}>{message}</Text>}
