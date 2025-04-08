@@ -3,8 +3,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type UserContextType = {
-    user: string;
-    setUser: (user: string) => void;
+    user: string | null;               // <-- TUTAJ
+    setUser: (user: string | null) => void;  // <-- I TUTAJ
 };
 
 const UserContext = createContext<UserContextType> ({
@@ -20,7 +20,7 @@ type Props = {
 }
 
 export const UserProvider = ({ children}: Props) => {
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState<string | null>(null);
 
     return (
         <UserContext.Provider value = {{ user, setUser }}>

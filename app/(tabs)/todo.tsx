@@ -11,6 +11,7 @@ import {
 import { useUser } from '../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 
 type TodoItem = {
   id: string;
@@ -21,7 +22,8 @@ type TodoItem = {
 const STORAGE_KEY = '@todos_data';
 
 export default function TodoScreen() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const router = useRouter();
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [newTodo, setNewTodo] = useState('');
 
@@ -36,6 +38,11 @@ export default function TodoScreen() {
         saveTodos();
     }
   }, [todos]);
+
+  const handleLogout = () => {
+    setUser(null);
+    router.replace('/');
+  };
 
   const loadTodos = async () => {
     try {
@@ -95,6 +102,11 @@ export default function TodoScreen() {
 
   return (
     <View style={styles.container}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <TouchableOpacity onPress={handleLogout}>
+                <Text style={{ color: '#00FFC4', fontWeight: 'bold', fontSize: 16 }}>Log Out</Text>
+            </TouchableOpacity>
+        </View>     
       <Text style={styles.header}>ToDo List</Text>
       
       <View style={styles.inputContainer}>
@@ -160,6 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   container: {
+    marginTop: 50,
     flex: 1,
     padding: 20,
     backgroundColor: '#101114'
