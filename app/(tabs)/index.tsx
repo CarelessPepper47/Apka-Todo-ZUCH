@@ -1,16 +1,21 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { useUser } from '../context/UserContext';
 
 export default function HomeScreen() {
+  const { user, setUser } = useUser();
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [result, setResult] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
 
   const handleLogin = () => {
-    if (username === "WSP0Lpraca" && password === "j4zd4Z7ema7em") {
-      setResult("ZUCH");
+    if (username === "szef" && password === "kosmosu") {
+      setUser('ZUCH')
+      setMessage("Zalogowano jako ZUCH");
     } else {
-      setResult("DUPA");
+      setUser('DUPA')
+      setMessage("Niepoprawne logowanie");
     }
   };
 
@@ -34,7 +39,7 @@ export default function HomeScreen() {
 
       <Button title="Zaloguj się" onPress={handleLogin} />
 
-      {result !== "" && <Text style={styles.result}>{result}</Text>}
+      {message !== "" && <Text style={styles.message}>{message}</Text>}
     </View>
   );
 }
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
   },
-  result: {
+  message: {
     marginTop: 20,
     fontSize: 24,
     fontWeight: "bold",
