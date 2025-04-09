@@ -1,11 +1,12 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons'; // Dodaj ten import
+// app/(tabs)/_layout.tsx
 
-import { HapticTab } from '@/components/HapticTab';
+import { Redirect, Tabs, Slot } from 'expo-router';
+import { useUser } from '../context/UserContext';
+import { MaterialIcons } from '@expo/vector-icons';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
+import { HapticTab } from '@/components/HapticTab';
+import { Platform } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -15,8 +16,13 @@ type TabBarIconProps = {
   focused?: boolean;
 };
 
-export default function TabLayout() {
+export default function TabsLayout() {
+  const { user } = useUser();
   const colorScheme = useColorScheme();
+
+  if (!user) {
+    return <Redirect href="/index" />; // Nie jesteś zalogowany? To won na login 😅
+  }
 
   return (
     <Tabs
@@ -31,25 +37,8 @@ export default function TabLayout() {
           },
           default: {},
         }),
-      }}>
-      <Tabs.Screen
-        name="sign"
-        options={{
-          title: 'Sign Up',
-          tabBarIcon: ({ color }: TabBarIconProps) => (
-            <MaterialIcons name="person-add" size={28} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }: TabBarIconProps) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
-        }}
-      />
+      }}
+    >
       <Tabs.Screen
         name="todo"
         options={{
