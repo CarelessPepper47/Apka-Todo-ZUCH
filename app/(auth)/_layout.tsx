@@ -6,6 +6,8 @@ import { useUser } from '../context/UserContext';
 export default function AuthLayout() {
   const { user } = useUser();
 
+  
+
   if (user) {
     return <Redirect href="/todo" />; // Już jesteś zalogowany? To spadaj do TODO 
   }

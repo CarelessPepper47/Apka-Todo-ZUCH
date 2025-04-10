@@ -1,12 +1,10 @@
-// app/(tabs)/_layout.tsx
-
-import { Redirect, Tabs, Slot } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
+import React from 'react';
+import { Platform } from 'react-native';
 import { useUser } from '../context/UserContext';
-import { MaterialIcons } from '@expo/vector-icons';
+import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { HapticTab } from '@/components/HapticTab';
-import { Platform } from 'react-native';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -16,12 +14,13 @@ type TabBarIconProps = {
   focused?: boolean;
 };
 
-export default function TabsLayout() {
-  const { user } = useUser();
+export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { user } = useUser();
 
+  // Jeśli użytkownik nie jest zalogowany, przekieruj na ekran logowania
   if (!user) {
-    return <Redirect href="/index" />; // Nie jesteś zalogowany? To won na login 😅
+    return <Redirect href="/" />;
   }
 
   return (
@@ -37,14 +36,31 @@ export default function TabsLayout() {
           },
           default: {},
         }),
-      }}
-    >
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }: TabBarIconProps) => (
+            <IconSymbol size={28} name="house.fill" color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="todo"
         options={{
           title: 'ToDoApp',
           tabBarIcon: ({ color }: TabBarIconProps) => (
             <IconSymbol size={28} name="paperplane.fill" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profil',
+          tabBarIcon: ({ color }: TabBarIconProps) => (
+            <IconSymbol size={28} name="person.fill" color={color} />
           ),
         }}
       />

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useUser } from '../context/UserContext';
 import { useRouter } from 'expo-router';
+
 
 
 export default function HomeScreen() {
@@ -12,15 +13,21 @@ export default function HomeScreen() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = () => {
+    if (!username || !password) {
+      Alert.alert('Błąd', 'Wprowadź nazwę użytkownika i hasło');
+      return;
+    }
+
     if (username === "szef" && password === "kosmosu") {
-      setUser('ZUCH')
+      setUser('ZUCH');
       setMessage("Zalogowano jako ZUCH");
-      router.replace('/todo');
     } else {
-      setUser('DUPA')
+      setUser(null);
       setMessage("Niepoprawne logowanie");
+      Alert.alert('Błąd', 'Niepoprawna nazwa użytkownika lub hasło');
     }
   };
 
