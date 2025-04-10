@@ -18,7 +18,7 @@ import { useRouter } from 'expo-router';
 type ProfileData = {
   username: string;
   email: string;
-  password: string; // W prawdziwej aplikacji nigdy nie przechowujemy hasła w plain text!
+  password: string;
   profileImage: string | null;
 };
 
